@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .calculator-form label {
+            margin-bottom: 5px;
+        }
+        .calculator-form input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .calculator-form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .results label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculator</h1>
+        <form class="calculator-form" id="calculatorForm">
+            <label for="price">Budget:</label>
+            <input type="number" id="price" placeholder="Enter Budget">
+
+            <label for="buy">Buy:</label>
+            <input type="number" id="buy" placeholder="Enter buy">
+
+            <label for="sale">Sale:</label>
+            <input type="number" id="sale" placeholder="Enter sale">
+
+            <button type="button" onclick="calculate()">Calculate</button>
+        </form>
+
+        <div class="results" id="results">
+            <label>Stop Loss:</label>
+            <span id="stoploss"></span><br><br>
+
+            <label>Volume:</label>
+            <span id="volume"></span><br><br>
+
+            <label>Quantity:</label>
+            <span id="quantity"></span><br><br>
+
+            <label>Buy Target:</label>
+            <span id="buyTarget"></span><br><br>
+
+            <label>Sale Target:</label>
+            <span id="saleTarget"></span><br><br>
+
+            <label>Buy Stop Loss:</label>
+            <span id="buystoploss"></span><br><br>
+
+            <label>Sale Stop Loss:</label>
+            <span id="salestoploss"></span><br><br>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const price = parseFloat(document.getElementById("price").value);
+            const buy = parseFloat(document.getElementById("buy").value);
+            const sale = parseFloat(document.getElementById("sale").value);
+
+            // Modify your formula here
+            const stoploss = Math.abs(buy - sale);
+            const volume = 100*stoploss/buy;
+            const quantity = (price*0.01)/stoploss;
+            const buyTarget = buy + stoploss;
+            const saleTarget = sale - stoploss;
+            const salestoploss = sale + stoploss;
+            const buystoploss = buy - stoploss;
+            document.getElementById("stoploss").textContent = stoploss.toFixed(2);
+            document.getElementById("volume").textContent = volume.toFixed(2);
+            document.getElementById("quantity").textContent = quantity.toFixed(2);
+            document.getElementById("buyTarget").textContent = buyTarget.toFixed(2);
+            document.getElementById("saleTarget").textContent = saleTarget.toFixed(2);
+            document.getElementById("buystoploss").textContent = buystoploss.toFixed(2);
+            document.getElementById("salestoploss").textContent = salestoploss.toFixed(2);
+        }
+    </script>
+</body>
+</html>
